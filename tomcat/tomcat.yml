@@ -31,11 +31,13 @@
         state: link    
     - name: change permissions
       ansible.builtin.file:    
-        dest: /opt/tomcat
+        path: /opt/tomcat
         recurse: true
         owner: tomcat
         group: tomcat
         state: directory
+    - name: add  shell files
+      ansible.builtin.command: sudo sh -c 'chmod +x /opt/tomcat/latest/bin/*.sh'    
         
 
             
