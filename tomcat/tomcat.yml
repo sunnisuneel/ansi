@@ -29,6 +29,13 @@
         src: /opt/tomcat
         dest: /opt/tomcat/latest
         state: link    
+    - name: change permissions
+      ansible.builtin.file:    
+        dest: /opt/tomcat
+        recurse: yes
+        owner: tomcat
+        group: tomcat
+        state: directory
         
 
             
