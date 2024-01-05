@@ -1,0 +1,34 @@
+---
+- name: install tomcat on ubuntu
+  hosts: all
+  become: yes
+  tasks:
+    - name: installing java
+      ansible.builtin.apt:
+        name: openjdk-11-jdk
+        update_cache: yes
+        state: present
+    - name: creating tomcat group
+      ansible.builtin.group:
+        name: tomcat
+        state: present
+    - name: creating tomcat user
+      ansible.builtin.user:
+        name: tomcat
+        create_home: yes
+        home: /opt/tomcat
+        shell: /bin/false
+        state: present
+    - name: extract tomcat tar file
+      ansible.builtin.unarchive:
+        src: https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.17/src/apache-tomcat-10.1.17-src.tar.gz
+        dest: /opt/tomcat
+        remote_src: yes
+    - nmae: creating symbolic link
+      ansible.builtin.file:
+        src: /opt/tomcat
+        dest: /opt/tomcat/latest
+        state: link    
+        
+
+            
